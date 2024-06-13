@@ -4,6 +4,9 @@ import { getSurahList, findSimilarSurahByName } from "./api";
 import SurahCard from "./SurahCard";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import SearchIcon from "@mui/icons-material/Search";
+import TextField from "@mui/material/TextField";
 
 const App = () => {
   const [surahList, setSurahList] = useState([]);
@@ -73,15 +76,30 @@ const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Daftar Surah</h1>
-        <input
-          className="text-input"
-          type="text"
-          value={searchInput}
-          onChange={handleInputChange}
-          placeholder="Masukkan nama surah"
-        />
-        <button onClick={handleSearch}>Cari</button>
+        <h1>Cari Surah</h1>
+        <Stack direction="row" spacing={2} alignItems="center">
+          <TextField
+            className="text-input"
+            variant="filled"
+            label="Masukkan nama surah"
+            value={searchInput}
+            onChange={handleInputChange}
+            error={emptyInputError}
+            helperText={emptyInputError ? "Contoh: al fatihah" : ""}
+          />
+          <Button
+            variant="contained"
+            endIcon={<SearchIcon />}
+            style={{
+              backgroundColor: "#f1ead7",
+              color: "#5f7e78",
+              marginLeft: 10,
+            }}
+            onClick={handleSearch}
+          >
+            Cari
+          </Button>
+        </Stack>
         {emptyInputError && (
           <p className="error-message">Masukkan nama surah</p>
         )}
