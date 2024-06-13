@@ -4,13 +4,13 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh; /* Mengatur tinggi minimum sesuai tinggi layar */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: black; /* Warna font diubah menjadi hitam */
+  color: black;
 }
 
 input[type="text"] {
@@ -30,22 +30,60 @@ button:hover {
   background-color: #0056b3;
 }
 
-.Surah-wrapper {
-  border: 1px solid #ccc;
-  margin-top: 10px;
+.text-input {
+  width: 50%;
   padding: 10px;
+  font-size: 18px;
   border-radius: 5px;
-  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  box-sizing: border-box;
 }
 
-.Surah-nama {
-  font-weight: bold;
+.text-input::placeholder {
+  color: #999;
+}
+
+.text-input:focus {
+  outline: none;
+  border-color: #007bff;
 }
 
 .Surah-list {
   margin-top: 20px;
+  opacity: 0;
+  transition: opacity 0.7s ease;
 }
 
-.Found-surah {
+.Surah-list.show {
+  opacity: 1;
+}
+
+.Surah-list-container {
+  display: flex;
+  overflow-x: auto;
+  padding: 10px;
+}
+
+.Surah-list-container::-webkit-scrollbar {
+  display: none;
+}
+
+.Surah-card {
+  flex: 0 0 auto;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+.pagination {
   margin-top: 20px;
+}
+
+.App-footer {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
 }

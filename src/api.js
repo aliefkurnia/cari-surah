@@ -5,39 +5,15 @@ const baseUrl = process.env.REACT_APP_BASEURL;
 export const getSurahList = async () => {
   try {
     const response = await axios.get(baseUrl);
-    console.log({response})
-    return response.data;
+    console.log({ responseData: response.data }); // Log the response data
+    return response.data.data; // Adjusted to match the actual API response structure
   } catch (error) {
     console.error("Error fetching the surah list", error);
     return [];
   }
 };
 
-
-// Fungsi untuk mencari surah berdasarkan input yang mirip
-export const findSimilarSurahByName = (surahList, name) => {
-  if (!surahList || surahList.length === 0) {
-    return [];
-  }
-
-  const similarSurah = surahList.reduce((acc, surahItem) => {
-    // Menghapus spasi dari nama surah dan input
-    const surahNameWithoutSpace = surahItem.nama.toLowerCase().replace(/\s/g, '');
-    const searchNameWithoutSpace = name.toLowerCase().replace(/\s/g, '');
-    
-    // Memeriksa Levenshtein distance antara nama surah dan input tanpa spasi
-    const distance = levenshteinDistance(surahNameWithoutSpace, searchNameWithoutSpace);
-    if (distance <= 3) { // Toleransi jarak 3 karakter
-      acc.push(surahItem);
-    }
-    return acc;
-  }, []);
-
-  return similarSurah.length > 0 ? similarSurah : surahList;
-};
-
-
-// Fungsi untuk menghitung Levenshtein distance antara dua string
+// Function to calculate Levenshtein distance between two strings
 const levenshteinDistance = (a, b) => {
   const distanceMatrix = Array(b.length + 1).fill(null).map(() => Array(a.length + 1).fill(null));
 
@@ -63,3 +39,22 @@ const levenshteinDistance = (a, b) => {
   return distanceMatrix[b.length][a.length];
 };
 
+// Function to find surah names similar to the input
+export const findSimilarSurahByName = (surahList, name) => {
+  if (!surahList || surahList.length === 0) {
+    return [];
+  }
+
+  const similarSurah = surahList.reduce((acc, surahItem) => {
+    const surahNameWithoutSpace = surahItem.namaLatin.toLowerCase().replace(/\s/g, '');
+    const searchNameWithoutSpace = name.toLowerCase().replace(/\s/g, '');
+
+    const distance = levenshteinDistance(surahNameWithoutSpace, searchNameWithoutSpace);
+    if (distance <= 3) { // Toleransi jarak 3 karakter
+      acc.push(surahItem);
+    }
+    return acc;
+  }, []);
+
+  return similarSurah.length > 0 ? similarSurah : surahList;
+};
