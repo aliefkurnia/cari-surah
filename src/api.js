@@ -5,7 +5,6 @@ const baseUrl = process.env.REACT_APP_BASEURL;
 export const getSurahList = async () => {
   try {
     const response = await axios.get(baseUrl);
-    console.log({ responseData: response.data }); // Log the response data
     return response.data.data; // Adjusted to match the actual API response structure
   } catch (error) {
     console.error("Error fetching the surah list", error);
@@ -15,7 +14,9 @@ export const getSurahList = async () => {
 
 // Function to calculate Levenshtein distance between two strings
 const levenshteinDistance = (a, b) => {
-  const distanceMatrix = Array(b.length + 1).fill(null).map(() => Array(a.length + 1).fill(null));
+  const distanceMatrix = Array(b.length + 1)
+    .fill(null)
+    .map(() => Array(a.length + 1).fill(null));
 
   for (let i = 0; i <= a.length; i += 1) {
     distanceMatrix[0][i] = i;
@@ -46,11 +47,17 @@ export const findSimilarSurahByName = (surahList, name) => {
   }
 
   const similarSurah = surahList.reduce((acc, surahItem) => {
-    const surahNameWithoutSpace = surahItem.namaLatin.toLowerCase().replace(/\s/g, '');
-    const searchNameWithoutSpace = name.toLowerCase().replace(/\s/g, '');
+    const surahNameWithoutSpace = surahItem.namaLatin
+      .toLowerCase()
+      .replace(/\s/g, "");
+    const searchNameWithoutSpace = name.toLowerCase().replace(/\s/g, "");
 
-    const distance = levenshteinDistance(surahNameWithoutSpace, searchNameWithoutSpace);
-    if (distance <= 3) { // Toleransi jarak 3 karakter
+    const distance = levenshteinDistance(
+      surahNameWithoutSpace,
+      searchNameWithoutSpace
+    );
+    if (distance <= 3) {
+      // Toleransi jarak 3 karakter
       acc.push(surahItem);
     }
     return acc;

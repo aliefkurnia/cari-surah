@@ -1,52 +1,43 @@
-import * as React from "react";
+import React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-const SurahCard = ({ surah, onClick, expanded }) => {
-  const [isHovered, setIsHovered] = React.useState(false);
+const SurahCard = ({ surah }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/surah/${surah.nomor}`);
+  };
 
   return (
     <Card
       sx={{
-        maxWidth: 345,
-        margin: "2px",
+        maxWidth: "40%",
+        margin: "3px",
+        height: "65px",
         "&:hover": {
-          backgroundColor: "#f0f0f0", // Lighter background color on hover
-          boxShadow: "0 8px 16px #f0f0f0", // Darker shadow on hover
+          backgroundColor: "#f0f0f0",
+          boxShadow: "0 3px 10px #f0f0f0",
         },
+        overflow: "hidden",
+        borderRadius: "12px", // Menentukan radius sudut untuk membuat card lebih rounded
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onClick={onClick}
+      onClick={handleClick}
     >
       <CardActionArea>
-        <CardContent>
+        <CardContent
+          sx={{
+            maxWidth: "100%",
+            whiteSpace: "normal",
+            wordBreak: "break-word",
+          }}
+        >
           <Typography gutterBottom variant="h5" component="div">
             {surah.namaLatin}
           </Typography>
-          {expanded && (
-            <>
-              <Typography variant="body2" color="text.secondary">
-                Arti: {surah.arti}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Asma: {surah.nama}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Tipe: {surah.tempatTurun}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Keterangan:{" "}
-                <span dangerouslySetInnerHTML={{ __html: surah.deskripsi }} />
-              </Typography>
-              <audio controls style={{ width: "100%", marginTop: "10px" }}>
-                <source src={surah.audioFull["01"]} type="audio/mp3" />
-                Your browser does not support the audio element.
-              </audio>
-            </>
-          )}
         </CardContent>
       </CardActionArea>
     </Card>

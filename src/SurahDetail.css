@@ -1,0 +1,29 @@
+.SurahDetail {
+  text-align: left;
+  padding: 30px;
+  background-color: #f1ead7;
+  color: #5f7e78;
+  margin: 20px auto;
+  max-width: 800px;
+  border-radius: 10px;
+  margin-top: 200px;
+}
+
+.SurahDetail h1 {
+  margin-bottom: 20px;
+}
+
+.back-button {
+  background-color: #5f7e78;
+  color: #f1ead7;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.back-button:hover {
+  background-color: #4d6660;
+}
