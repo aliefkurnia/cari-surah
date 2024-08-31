@@ -4,33 +4,50 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
   background-color: #f5f5dc; /* Cream color as background */
 }
+
 .App-content {
-  flex: 1; /* Memastikan konten utama mengisi ruang yang tersisa */
+  overflow-y: auto;
 }
-/* Header styling */
+
 .App-header {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: #ffffff; /* White text color */
   padding: 20px;
-  margin-top: 20px; /* Reduced top margin */
-  width: 100%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin: 0;
+  width: 95vw;
+  height: 90vh;
+  position: relative;
+}
+
+.App-header h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.App-header p {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 20px;
+  line-height: 1.6;
+  max-width: 900px; /* Atur lebar maksimum agar tidak terlalu lebar */
+  margin: 0 auto 20px auto; /* Pusatkan paragraf */
+  text-align: center; /* Ratakan teks di tengah */
 }
 
 /* Card list styling */
 .surah-list {
   display: flex;
-  flex-wrap: wrap; /* Wrap cards if needed */
-  justify-content: center; /* Center cards */
+  flex-wrap: wrap;
+  justify-content: center;
   padding: 20px;
-  gap: 20px; /* Spacing between cards */
+  gap: 20px;
 }
 
 /* Pagination styling */
@@ -38,4 +55,22 @@
   display: flex;
   justify-content: center;
   margin-top: 20px;
+}
+
+/* Mobile styling */
+@media (max-width: 600px) {
+  .App-header {
+    height: auto; /* Allow header to adjust height based on content */
+  }
+
+  .text-input {
+    width: 100%;
+    max-width: none; /* Allow full width on mobile */
+    height: auto; /* Adjust height based on content */
+  }
+
+  .search-button {
+    width: 100%;
+    margin-top: 10px; /* Add margin for spacing */
+  }
 }

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import "./App.css"; // Impor file CSS global
+import "./App.css";
 import Header from "./components/Header";
-import Footer from "./components/Footer"; // Impor Footer
+import Footer from "./components/Footer";
 import { getSurahList } from "./api";
 import SurahCard from "./components/SurahCard";
 import SurahDetail from "./components/SurahDetail";
 import ZakatCalculator from "./components/ZakatCalculator";
+import About from "./components/About";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
@@ -33,6 +34,31 @@ const App = () => {
         console.error("Error fetching surah list:", error);
         setSurahList([]);
       });
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = (event) => {
+      event.preventDefault();
+      const targetId = event.currentTarget.getAttribute("href").slice(1);
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    };
+
+    const scrollLinks = document.querySelectorAll("a[href^='#']");
+    scrollLinks.forEach((link) => {
+      link.addEventListener("click", handleScroll);
+    });
+
+    return () => {
+      scrollLinks.forEach((link) => {
+        link.removeEventListener("click", handleScroll);
+      });
+    };
   }, []);
 
   const handleInputChange = (e) => {
@@ -79,7 +105,16 @@ const App = () => {
               path="/"
               element={
                 <>
-                  <header className="App-header">
+                  <header className="App-header" id="home">
+                    <h1>Selamat Datang di Aplikasi Cari Surah</h1>
+                    <p>
+                      Temukan informasi lengkap tentang surah-surah dalam
+                      Al-Qur'an, hitung zakat Anda, dan pelajari lebih lanjut
+                      tentang topik-topik terkait. Gunakan kotak pencarian di
+                      bawah untuk mencari surah berdasarkan nama. Aplikasi ini
+                      dirancang untuk membantu Anda dalam memahami dan mengakses
+                      Al-Qur'an dengan mudah.
+                    </p>
                     <Stack
                       direction={{ xs: "column", sm: "row" }}
                       spacing={2}
@@ -98,45 +133,50 @@ const App = () => {
                         }}
                         sx={{
                           "& .MuiFilledInput-root": {
-                            backgroundColor: "#ffffff",
-                            fontSize: "1.2rem",
-                            height: "4rem",
+                            fontSize: "3rem",
+                            height: "5rem",
                           },
-                          width: { xs: "100%", sm: "50%" },
+                          width: { xs: "100%", sm: "80%" },
                         }}
                       />
+
                       <Button
+                        className="search-button"
                         variant="contained"
                         endIcon={<SearchIcon />}
                         onClick={handleSearch}
                         sx={{
-                          height: "3.5rem",
+                          width: { xs: "100%", sm: "auto" },
+                          marginTop: { xs: "10px", sm: "0" },
                           backgroundColor: "#5f7e78",
-                          "&:hover": { backgroundColor: "#333" },
-                          fontSize: "1.2rem",
                         }}
                       >
                         Cari
                       </Button>
                     </Stack>
+
+                    {surahNotFound && <h3>Surah tidak ditemukan.</h3>}
+                    {emptyInputError && (
+                      <h3>Masukkan nama surah untuk mencari.</h3>
+                    )}
+                    <div className="surah-list">
+                      {currentSurahs.map((surah) => (
+                        <SurahCard key={surah.nomor} surah={surah} />
+                      ))}
+                    </div>
+                    <Pagination
+                      className="pagination"
+                      count={totalPages}
+                      page={currentPage}
+                      onChange={handlePageChange}
+                    />
                   </header>
-                  {surahNotFound && <h3>Surah tidak ditemukan.</h3>}
-                  {emptyInputError && (
-                    <h3>Masukkan nama surah untuk mencari.</h3>
-                  )}
-                  <div className="surah-list">
-                    {currentSurahs.map((surah) => (
-                      <SurahCard key={surah.nomor} surah={surah} />
-                    ))}
-                  </div>
-                  <Pagination
-                    className="pagination"
-                    count={totalPages}
-                    page={currentPage}
-                    onChange={handlePageChange}
-                    color="primary"
-                    sx={{ marginTop: "20px" }}
-                  />
+                  <section className="calculator-section" id="zakat-calculator">
+                    <ZakatCalculator />
+                  </section>
+                  <section className="about-section" id="about">
+                    <About />
+                  </section>
                 </>
               }
             />
@@ -144,7 +184,6 @@ const App = () => {
               path="/surah/:surahId"
               element={<SurahDetail surahList={surahList} />}
             />
-            <Route path="/zakat-calculator" element={<ZakatCalculator />} />
           </Routes>
         </div>
         <Footer />

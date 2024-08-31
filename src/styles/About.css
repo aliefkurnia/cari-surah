@@ -1,0 +1,29 @@
+/* CSS untuk section About */
+.about-section {
+  padding: 40px 20px; /* Tambahkan padding untuk section */
+  background-color: #f9f9f975; /* Warna latar belakang yang ringan untuk section */
+  display: flex;
+  justify-content: center; /* Memusatkan konten */
+}
+
+.about-container {
+  max-width: 800px; /* Lebar maksimum kontainer */
+  width: 100%; /* Memastikan kontainer menggunakan lebar penuh dari section */
+  padding: 30px; /* Padding di dalam kontainer */
+  border-radius: 8px; /* Sudut membulat pada kontainer */
+  text-align: left; /* Teks rata kiri */
+}
+
+.about-container h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center; /* Judul di tengah secara horizontal */
+}
+
+.about-container p {
+  font-size: 1.2rem;
+  color: #555;
+  line-height: 1.6;
+  text-align: center; /* Teks paragraf di tengah secara horizontal */
+}

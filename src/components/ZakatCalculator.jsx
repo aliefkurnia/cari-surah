@@ -13,29 +13,31 @@ const ZakatCalculator = () => {
   };
 
   return (
-    <div className="zakat-calculator">
-      <h2>Kalkulator Zakat</h2>
-      <div className="calculator-inputs">
-        <input
-          type="number"
-          placeholder="Pendapatan Tahunan"
-          value={income}
-          onChange={(e) => setIncome(e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder="Tabungan"
-          value={savings}
-          onChange={(e) => setSavings(e.target.value)}
-        />
-        <button onClick={calculateZakat}>Hitung Zakat</button>
-      </div>
-      {zakat !== null && (
-        <div className="zakat-result">
-          <p>Zakat yang harus dibayar: Rp {zakat.toFixed(2)}</p>
+    <section class="calculator-section" id="zakat-calculator">
+      <div className="zakat-calculator">
+        <h1>Kalkulator Zakat</h1>
+        <div className="calculator-inputs">
+          <input
+            type="number"
+            placeholder="Pendapatan Tahunan"
+            value={income}
+            onChange={(e) => setIncome(e.target.value)}
+          />
+          <input
+            type="number"
+            placeholder="Tabungan"
+            value={savings}
+            onChange={(e) => setSavings(e.target.value)}
+          />
+          <button onClick={calculateZakat}>Hitung Zakat</button>
         </div>
-      )}
-    </div>
+        {zakat !== null && (
+          <div className="zakat-result">
+            <p>Zakat yang harus dibayar: Rp {zakat.toFixed(2)}</p>
+          </div>
+        )}
+      </div>
+    </section>
   );
 };
 

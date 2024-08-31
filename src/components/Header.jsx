@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "../styles/Header.css"; // Pastikan menambah file CSS untuk styling
+import "../styles/Header.css";
 import icon from "../images/icon.png";
 
 const Header = () => {
+  const [showMenu, setShowMenu] = useState(false);
+
   return (
     <header className="header">
       <div className="header-container">
@@ -12,16 +14,24 @@ const Header = () => {
             <img src={icon} alt="Quran App" className="header-logo" />
           </Link>
         </div>
-        <nav className="header-nav">
+        <div
+          className={`hamburger ${showMenu ? "active" : ""}`}
+          onClick={() => setShowMenu(!showMenu)}
+        >
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <nav className={`header-nav ${showMenu ? "show" : ""}`}>
           <ul>
             <li>
-              <Link to="/">Home</Link>
+              <a href="#home">Home</a>
             </li>
             <li>
-              <Link to="/zakat-calculator">Kalkulator Zakat</Link>
+              <a href="#zakat-calculator">Kalkulator Zakat</a>
             </li>
             <li>
-              <Link to="/about">Tentang Kami</Link>
+              <a href="#about">Tentang Kami</a>
             </li>
           </ul>
         </nav>
