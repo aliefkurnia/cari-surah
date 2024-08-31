@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { useInView } from "react-intersection-observer";
 import "./App.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -49,7 +50,7 @@ const App = () => {
       }
     };
 
-    const scrollLinks = document.querySelectorAll("a[href^='#']");
+    const scrollLinks = document.querySelectorAll('a[href^="#"]');
     scrollLinks.forEach((link) => {
       link.addEventListener("click", handleScroll);
     });
@@ -95,6 +96,27 @@ const App = () => {
 
   const totalPages = Math.ceil(foundSurah.length / itemsPerPage);
 
+  // Function to handle Enter key press
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSearch();
+    }
+  };
+
+  // Intersection Observer hooks
+  const { ref: headerRef, inView: headerInView } = useInView({
+    triggerOnce: false,
+    threshold: 0.1,
+  });
+  const { ref: calculatorRef, inView: calculatorInView } = useInView({
+    triggerOnce: false,
+    threshold: 0.1,
+  });
+  const { ref: aboutRef, inView: aboutInView } = useInView({
+    triggerOnce: false,
+    threshold: 0.1,
+  });
+
   return (
     <Router>
       <div className="App">
@@ -105,7 +127,11 @@ const App = () => {
               path="/"
               element={
                 <>
-                  <header className="App-header" id="home">
+                  <header
+                    className={`App-header ${headerInView ? "appear" : ""}`}
+                    id="home"
+                    ref={headerRef}
+                  >
                     <h1>Selamat Datang di Aplikasi Cari Surah</h1>
                     <p>
                       Temukan informasi lengkap tentang surah-surah dalam
@@ -125,6 +151,7 @@ const App = () => {
                         variant="filled"
                         label="Masukkan nama surah"
                         onChange={handleInputChange}
+                        onKeyPress={handleKeyPress} // Add this line
                         InputLabelProps={{
                           style: {
                             color: "#5f7e78",
@@ -133,8 +160,8 @@ const App = () => {
                         }}
                         sx={{
                           "& .MuiFilledInput-root": {
-                            fontSize: "3rem",
-                            height: "5rem",
+                            fontSize: "2rem",
+                            height: "3rem",
                           },
                           width: { xs: "100%", sm: "80%" },
                         }}
@@ -149,6 +176,12 @@ const App = () => {
                           width: { xs: "100%", sm: "auto" },
                           marginTop: { xs: "10px", sm: "0" },
                           backgroundColor: "#5f7e78",
+                          "&:hover": {
+                            backgroundColor: "#4a6c65", // Background color on hover
+                          },
+                          "&:active": {
+                            backgroundColor: "#4a6c65", // Background color when button is pressed
+                          },
                         }}
                       >
                         Cari
@@ -157,7 +190,7 @@ const App = () => {
 
                     {surahNotFound && <h3>Surah tidak ditemukan.</h3>}
                     {emptyInputError && (
-                      <h3>Masukkan nama surah untuk mencari.</h3>
+                      <p>Masukkan nama surah untuk mencari.</p>
                     )}
                     <div className="surah-list">
                       {currentSurahs.map((surah) => (
@@ -171,10 +204,20 @@ const App = () => {
                       onChange={handlePageChange}
                     />
                   </header>
-                  <section className="calculator-section" id="zakat-calculator">
+                  <section
+                    className={`calculator-section ${
+                      calculatorInView ? "appear" : ""
+                    }`}
+                    id="zakat-calculator"
+                    ref={calculatorRef}
+                  >
                     <ZakatCalculator />
                   </section>
-                  <section className="about-section" id="about">
+                  <section
+                    className={`about-section ${aboutInView ? "appear" : ""}`}
+                    id="about"
+                    ref={aboutRef}
+                  >
                     <About />
                   </section>
                 </>

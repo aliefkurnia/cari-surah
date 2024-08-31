@@ -12,6 +12,7 @@
   max-width: 1200px;
   margin: 0 auto;
 }
+
 .footer-left {
   text-align: left; /* Mengatur teks agar rata kiri */
 }
@@ -37,6 +38,7 @@
 .footer-menu li a:hover {
   text-decoration: underline;
 }
+
 .footer-right {
   display: flex;
   flex-direction: column; /* Menyusun item secara vertikal */
@@ -76,4 +78,60 @@
 
 .contact-info a:hover {
   text-decoration: underline; /* Garis bawah saat hover */
+}
+
+/* Media query untuk versi mobile */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column; /* Ubah tata letak menjadi vertikal pada layar kecil */
+    align-items: center; /* Pusatkan konten secara horizontal */
+  }
+
+  .footer-left {
+    text-align: center; /* Pusatkan teks di footer kiri */
+    margin-bottom: 20px; /* Tambahkan margin bawah untuk footer kiri */
+  }
+
+  .footer-menu {
+    align-items: center; /* Pusatkan item menu secara horizontal */
+  }
+
+  .footer-menu li {
+    margin-bottom: 8px; /* Kurangi jarak antar item menu pada layar kecil */
+  }
+
+  .footer-right {
+    align-items: center; /* Pusatkan item footer kanan */
+  }
+
+  .store-icon {
+    width: 120px; /* Kurangi ukuran ikon untuk layar kecil */
+  }
+
+  .social-icon {
+    width: 35px; /* Kurangi ukuran ikon sosial media */
+  }
+
+  .contact-info p {
+    font-size: 0.9rem; /* Kurangi ukuran font untuk layar kecil */
+  }
+}
+
+/* Media query untuk versi mobile lebih kecil (seperti ponsel) */
+@media (max-width: 480px) {
+  .footer-content {
+    padding: 10px; /* Kurangi padding untuk layar sangat kecil */
+  }
+
+  .store-icon {
+    width: 100px; /* Kurangi ukuran ikon lebih jauh untuk layar sangat kecil */
+  }
+
+  .social-icon {
+    width: 30px; /* Kurangi ukuran ikon sosial media lebih jauh */
+  }
+
+  .contact-info p {
+    font-size: 0.8rem; /* Kurangi ukuran font lebih jauh */
+  }
 }

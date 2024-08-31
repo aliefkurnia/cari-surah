@@ -1,53 +1,101 @@
-.calculator-section {
-  padding: 20px;
-  /* Atur lebar section kalkulator */
-  max-width: 1200px; /* Atur lebar maksimum sesuai kebutuhan */
-  margin: 0 auto; /* Tengah-tengah secara horizontal */
-}
+/* Styling untuk .zakat-calculator */
 .zakat-calculator {
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 800px; /* Atur lebar maksimum kalkulator */
-  margin: 0 auto;
-  text-align: center;
-  overflow-x: hidden;
-}
-.zakat-calculator h1 {
-  font-size: 2.5rem; /* Sesuaikan ukuran font sesuai kebutuhan */
-  color: #333; /* Warna teks */
-  margin-bottom: 20px;
+  width: 100%; /* Lebar penuh kontainer */
+  max-width: 800px; /* Lebar maksimum elemen */
+  padding: 20px; /* Padding di dalam kalkulator */
+  margin: 20px auto; /* Margin atas dan bawah */
+  border-radius: 8px; /* Radius sudut */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan */
+  text-align: center; /* Pusatkan teks di dalam kalkulator */
+  overflow-x: hidden; /* Menyembunyikan scroll horizontal */
 }
 
+/* Styling untuk judul dalam kalkulator */
+.zakat-calculator h1 {
+  font-size: 2.5rem; /* Ukuran font judul */
+  color: #333; /* Warna teks */
+  margin-bottom: 20px; /* Margin bawah judul */
+}
+
+/* Styling untuk input dan tombol dalam kalkulator */
 .calculator-inputs {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 10px; /* Jarak antara input dan tombol */
+  margin-bottom: 20px; /* Margin bawah input dan tombol */
 }
 
 .calculator-inputs input {
-  padding: 10px;
-  font-size: 1.1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  padding: 10px; /* Padding di dalam input */
+  font-size: 1.1rem; /* Ukuran font input */
+  border: 1px solid #ccc; /* Garis border input */
+  border-radius: 5px; /* Radius sudut input */
 }
 
 .calculator-inputs button {
-  padding: 10px;
-  background-color: #5f7e78;
-  color: white;
-  border: none;
-  font-size: 1.2rem;
-  cursor: pointer;
-  border-radius: 5px;
+  padding: 10px; /* Padding di dalam tombol */
+  background-color: #5f7e78; /* Warna latar belakang tombol */
+  color: white; /* Warna teks tombol */
+  border: none; /* Hilangkan border tombol */
+  font-size: 1.2rem; /* Ukuran font tombol */
+  cursor: pointer; /* Kursor pointer saat hover */
+  border-radius: 5px; /* Radius sudut tombol */
 }
 
 .calculator-inputs button:hover {
-  background-color: #333;
+  background-color: #4a6c65; /* Warna latar belakang tombol saat hover */
 }
 
+/* Styling untuk hasil kalkulasi */
 .zakat-result {
-  margin-top: 20px;
-  font-size: 1.2rem;
-  color: #333;
+  margin-top: 20px; /* Margin atas hasil kalkulasi */
+  font-size: 1.2rem; /* Ukuran font hasil */
+  color: #333; /* Warna teks hasil */
+}
+
+/* Media query untuk versi mobile */
+@media (max-width: 768px) {
+  .zakat-calculator {
+    padding: 15px; /* Kurangi padding di dalam kalkulator */
+    max-width: 100%; /* Pastikan kalkulator tidak melewati lebar layar */
+  }
+
+  .zakat-calculator h1 {
+    font-size: 2rem; /* Sesuaikan ukuran font judul untuk layar kecil */
+    margin-bottom: 15px; /* Kurangi margin bawah judul */
+  }
+
+  .calculator-inputs input {
+    font-size: 1rem; /* Sesuaikan ukuran font input untuk layar kecil */
+  }
+
+  .calculator-inputs button {
+    font-size: 1rem; /* Sesuaikan ukuran font tombol */
+    padding: 8px; /* Kurangi padding tombol untuk layar kecil */
+  }
+
+  .zakat-result {
+    font-size: 1rem; /* Sesuaikan ukuran font hasil */
+  }
+}
+
+/* Media query untuk versi mobile lebih kecil (seperti ponsel) */
+@media (max-width: 480px) {
+  .zakat-calculator h1 {
+    font-size: 1.75rem; /* Sesuaikan ukuran font judul lebih kecil untuk layar sangat kecil */
+    margin-bottom: 10px; /* Kurangi margin bawah judul */
+  }
+
+  .calculator-inputs input {
+    font-size: 0.9rem; /* Sesuaikan ukuran font input untuk layar sangat kecil */
+  }
+
+  .calculator-inputs button {
+    font-size: 0.9rem; /* Sesuaikan ukuran font tombol untuk layar sangat kecil */
+    padding: 6px; /* Kurangi padding tombol */
+  }
+
+  .zakat-result {
+    font-size: 0.9rem; /* Sesuaikan ukuran font hasil */
+  }
 }

@@ -1,3 +1,12 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html,
+body {
+  overflow-x: hidden; /* Menyembunyikan scroll horizontal */
+}
 /* General App styling */
 .App {
   text-align: center;
@@ -18,7 +27,6 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  padding: 20px;
   margin: 0;
   width: 95vw;
   height: 90vh;
@@ -61,6 +69,7 @@
 @media (max-width: 600px) {
   .App-header {
     height: auto; /* Allow header to adjust height based on content */
+    margin-top: 20vw;
   }
 
   .text-input {
@@ -73,4 +82,72 @@
     width: 100%;
     margin-top: 10px; /* Add margin for spacing */
   }
+  .search-button :hover {
+    background-color: #33333348;
+  }
+}
+/* Animasi CSS */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.appear {
+  opacity: 0; /* Initial state for animation */
+  animation: fadeIn 1s ease-out forwards; /* Apply animation */
+  will-change: opacity, transform; /* Optimizes animation performance */
+  overflow-y: hidden;
+}
+/* Styling umum untuk elemen */
+section,
+.calculator-section,
+.zakat-calculator {
+  margin: 0 auto; /* Pusatkan elemen secara horizontal */
+}
+
+/* Styling khusus untuk .calculator-section */
+.calculator-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Pusatkan konten secara horizontal */
+  justify-content: center; /* Pusatkan konten secara vertikal */
+  font-size: calc(10px + 1vmin); /* Sesuaikan ukuran font */
+  width: 95vw; /* Lebar elemen sesuai dengan viewport */
+  height: auto; /* Sesuaikan tinggi elemen secara otomatis */
+  min-height: 80vh; /* Minimal tinggi elemen */
+  position: relative; /* Posisi relatif jika diperlukan untuk penataan lebih lanjut */
+  overflow: hidden;
+}
+.about-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Pusatkan konten secara horizontal */
+  justify-content: center; /* Pusatkan konten secara vertikal */
+  font-size: calc(10px + 1vmin); /* Sesuaikan ukuran font */
+  width: 95vw; /* Lebar elemen sesuai dengan viewport */
+  height: auto; /* Sesuaikan tinggi elemen secara otomatis */
+  min-height: 80vh; /* Minimal tinggi elemen */
+  position: relative; /* Posisi relatif jika diperlukan untuk penataan lebih lanjut */
+  overflow: hidden;
+}
+
+/* Styling khusus untuk .zakat-calculator */
+.zakat-calculator {
+  width: 100%; /* Lebar penuh kontainer */
+  max-width: 800px; /* Lebar maksimum elemen */
+  margin: 20px 0; /* Margin atas dan bawah */
+  border-radius: 8px; /* Radius sudut */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan */
+}
+
+/* Styling untuk .App-content untuk memastikan elemen berada di bawah header */
+.App-content {
+  margin-top: 0; /* Pastikan margin atas tidak menyebabkan jarak tambahan */
+  padding: 20px;
 }
