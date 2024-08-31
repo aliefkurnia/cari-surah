@@ -1,12 +1,12 @@
 .SurahDetail {
   text-align: left;
   padding: 30px;
-  background-color: #f1ead7;
+  background-color: #ffffff;
   color: #5f7e78;
-  margin: 20px auto;
-  max-width: 800px;
+  margin: 30px auto;
+  max-width: 900px;
   border-radius: 10px;
-  margin-top: 200px;
+  margin-top: 8vmax;
 }
 
 .SurahDetail h1 {
