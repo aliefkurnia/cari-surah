@@ -1,14 +1,46 @@
-.Footer {
-  background-color: #5f7e78; /* Warna latar belakang cream */
+/* Gaya untuk Footer */
+.footer {
+  background-color: #5f7e78; /* Warna latar belakang */
   padding: 20px;
-  text-align: center;
   border-top: 1px solid #e1e1e1;
 }
 
 .footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+}
+.footer-left {
+  text-align: left; /* Mengatur teks agar rata kiri */
+}
+
+.footer-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex; /* Mengatur item menu secara horizontal jika diperlukan */
+  flex-direction: column; /* Mengatur item menu secara vertikal */
+}
+
+.footer-menu li {
+  margin-bottom: 10px; /* Jarak antar item menu */
+}
+
+.footer-menu li a {
+  color: #f1ead7; /* Warna teks */
+  text-decoration: none;
+  font-size: 0.9rem; /* Ukuran font */
+}
+
+.footer-menu li a:hover {
+  text-decoration: underline;
+}
+.footer-right {
+  display: flex;
+  flex-direction: column; /* Menyusun item secara vertikal */
+  align-items: flex-end; /* Menyelaraskan item ke sebelah kanan */
 }
 
 .store-links {
@@ -16,17 +48,9 @@
 }
 
 .store-icon {
-  width: 150px;
+  width: 150px; /* Ukuran ikon */
+  height: auto;
   margin: 0 10px;
-}
-
-.contact-info {
-  margin-bottom: 20px;
-}
-
-.contact-info a {
-  color: #333;
-  text-decoration: none;
 }
 
 .social-media {
@@ -34,11 +58,22 @@
 }
 
 .social-icon {
-  width: 30px;
+  width: 40px; /* Ukuran ikon sosial media */
+  height: auto;
   margin: 0 10px;
 }
 
-.footer-bottom {
-  border-top: 1px solid #e1e1e1;
-  padding-top: 10px;
+.contact-info p {
+  font-size: 1rem;
+  color: #f1ead7; /* Warna teks */
+  margin: 0;
+}
+
+.contact-info a {
+  color: #f1ead7; /* Warna tautan */
+  text-decoration: none;
+}
+
+.contact-info a:hover {
+  text-decoration: underline; /* Garis bawah saat hover */
 }
