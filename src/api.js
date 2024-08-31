@@ -2,17 +2,18 @@ import axios from "axios";
 
 const baseUrl = process.env.REACT_APP_BASEURL;
 
+// Mengambil daftar surah dari API
 export const getSurahList = async () => {
   try {
     const response = await axios.get(baseUrl);
-    return response.data.data; // Adjusted to match the actual API response structure
+    return response.data.data; // Sesuaikan dengan struktur data API
   } catch (error) {
     console.error("Error fetching the surah list", error);
     return [];
   }
 };
 
-// Function to calculate Levenshtein distance between two strings
+// Menghitung jarak Levenshtein antara dua string
 const levenshteinDistance = (a, b) => {
   const distanceMatrix = Array(b.length + 1)
     .fill(null)
@@ -30,9 +31,9 @@ const levenshteinDistance = (a, b) => {
     for (let i = 1; i <= a.length; i += 1) {
       const indicator = a[i - 1] === b[j - 1] ? 0 : 1;
       distanceMatrix[j][i] = Math.min(
-        distanceMatrix[j][i - 1] + 1, // Deletion
-        distanceMatrix[j - 1][i] + 1, // Insertion
-        distanceMatrix[j - 1][i - 1] + indicator // Substitution
+        distanceMatrix[j][i - 1] + 1, // Penghapusan
+        distanceMatrix[j - 1][i] + 1, // Penyisipan
+        distanceMatrix[j - 1][i - 1] + indicator // Substitusi
       );
     }
   }
@@ -40,7 +41,7 @@ const levenshteinDistance = (a, b) => {
   return distanceMatrix[b.length][a.length];
 };
 
-// Function to find surah names similar to the input
+// Mencari surah yang mirip dengan nama yang diberikan
 export const findSimilarSurahByName = (surahList, name) => {
   if (!surahList || surahList.length === 0) {
     return [];

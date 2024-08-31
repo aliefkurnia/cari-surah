@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import "./SurahDetail.css";
+import "../styles/SurahDetail.css";
 
 const SurahDetail = ({ surahList }) => {
   const navigate = useNavigate();

@@ -1,100 +1,41 @@
+/* General App styling */
 .App {
   text-align: center;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  overflow: hidden; /* Prevent scrolling */
-  position: relative; /* Tetapkan posisi relatif untuk konten utama */
+  overflow: hidden;
+  background-color: #f5f5dc; /* Cream color as background */
 }
-
-.App::before {
-  content: "";
-  background-image: url(~images/background.png); /* Gunakan ~ untuk import dari node_modules */
-  background-size: cover; /* Mengatur ukuran gambar agar menutupi seluruh area */
-  background-repeat: no-repeat; /* Menghindari pengulangan gambar */
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  filter: blur(2px); /* Efek blur dengan radius 5px */
-  z-index: -1; /* Mengirimkan latar belakang ke belakang konten utama */
+.App-content {
+  flex: 1; /* Memastikan konten utama mengisi ruang yang tersisa */
 }
-
+/* Header styling */
 .App-header {
-  background-color: #5f7e787c; /* Warna latar belakang dengan opacity */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: #f1ead7; /* Warna teks */
-  padding: 10px; /* Padding untuk ruang di dalam header */
-  margin-top: 250px; /* Jarak atas dari konten ke header */
-}
-
-input[type="text"] {
-  padding: 8px;
-  margin-right: 10px;
-  flex: 1;
-}
-
-.text-input {
+  color: #ffffff; /* White text color */
+  padding: 20px;
+  margin-top: 20px; /* Reduced top margin */
   width: 100%;
-  padding: 5px;
-  font-size: 18px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
-  box-sizing: border-box;
-  background-color: #ffffff; /* Set default background color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.text-input::placeholder {
-  color: #999;
-}
-
-.text-input:focus {
-  outline: none;
-  border-color: #007bff;
-}
-
-.Surah-list {
-  margin-top: 20px;
-  opacity: 0;
-  transition: opacity 0.7s ease;
-}
-
-.Surah-list.show {
-  opacity: 1;
-}
-
-.Surah-list-container {
+/* Card list styling */
+.surah-list {
   display: flex;
-  overflow-x: auto;
-  padding: 10px;
+  flex-wrap: wrap; /* Wrap cards if needed */
+  justify-content: center; /* Center cards */
+  padding: 20px;
+  gap: 20px; /* Spacing between cards */
 }
 
-.Surah-list-container::-webkit-scrollbar {
-  display: none;
-}
-
-.Surah-card {
-  flex: 0 0 auto;
-}
-
-.error-message {
-  color: red;
-  margin-top: 10px;
-}
-
+/* Pagination styling */
 .pagination {
+  display: flex;
+  justify-content: center;
   margin-top: 20px;
-}
-
-.App-footer {
-  background-color: #282c34;
-  padding: 2px;
-  color: white;
-  margin-top: auto; /* Push footer to the bottom */
 }

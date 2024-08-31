@@ -1,0 +1,44 @@
+.Footer {
+  background-color: #5f7e78; /* Warna latar belakang cream */
+  padding: 20px;
+  text-align: center;
+  border-top: 1px solid #e1e1e1;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.store-links {
+  margin-bottom: 20px;
+}
+
+.store-icon {
+  width: 150px;
+  margin: 0 10px;
+}
+
+.contact-info {
+  margin-bottom: 20px;
+}
+
+.contact-info a {
+  color: #333;
+  text-decoration: none;
+}
+
+.social-media {
+  margin-bottom: 20px;
+}
+
+.social-icon {
+  width: 30px;
+  margin: 0 10px;
+}
+
+.footer-bottom {
+  border-top: 1px solid #e1e1e1;
+  padding-top: 10px;
+}

@@ -1,0 +1,38 @@
+.header {
+  background-color: #5f7e78; /* Warna latar belakang yang tenang */
+  padding: 15px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow lembut */
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.header-logo {
+  width: 150px; /* Atur ukuran logo */
+  height: auto;
+}
+
+.header-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px; /* Spasi antar menu */
+  margin: 0;
+  padding: 0;
+}
+
+.header-nav ul li a {
+  text-decoration: none;
+  color: #f1ead7; /* Warna teks */
+  font-size: 1.2rem;
+  transition: color 0.3s; /* Animasi pada hover */
+}
+
+.header-nav ul li a:hover {
+  color: #333; /* Warna teks saat di hover */
+}
