@@ -5,7 +5,7 @@ const About = () => {
   return (
     <section className="about-section" id="about">
       <div className="about-container">
-        <h1>About Us</h1>
+        <h1>Tentang Kami</h1>
         <p>
           Welcome to our application! This app provides a convenient way to
           explore and learn about various Surahs from the Quran. Our mission is
