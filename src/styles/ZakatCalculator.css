@@ -5,7 +5,6 @@
   padding: 20px; /* Padding di dalam kalkulator */
   margin: 20px auto; /* Margin atas dan bawah */
   border-radius: 8px; /* Radius sudut */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bayangan */
   text-align: center; /* Pusatkan teks di dalam kalkulator */
   overflow-x: hidden; /* Menyembunyikan scroll horizontal */
 }

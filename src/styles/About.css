@@ -1,16 +1,22 @@
 /* CSS untuk versi desktop */
 .about-section {
-  background-color: #f9f9f975; /* Warna latar belakang yang ringan untuk section */
   display: flex;
   justify-content: center; /* Memusatkan konten */
+  padding: 20px;
+  margin: 20px auto; /* Margin atas dan bawah */
+  overflow: hidden;
 }
 
 .about-container {
-  max-width: 800px; /* Lebar maksimum kontainer */
-  width: 100%; /* Memastikan kontainer menggunakan lebar penuh dari section */
-  padding: 20px; /* Padding di dalam kontainer */
-  border-radius: 8px; /* Sudut membulat pada kontainer */
-  text-align: left; /* Teks rata kiri */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  margin: 0;
+  width: 95vw;
+  height: 90vh;
+  position: relative;
 }
 
 .about-container h1 {
@@ -22,9 +28,12 @@
 
 .about-container p {
   font-size: 1.2rem;
-  color: #555;
+  color: #666;
+  margin-bottom: 20px;
   line-height: 1.6;
-  text-align: center; /* Teks paragraf di tengah secara horizontal */
+  max-width: 900px; /* Atur lebar maksimum agar tidak terlalu lebar */
+  margin: 0 auto 20px auto; /* Pusatkan paragraf */
+  text-align: center; /* Ratakan teks di tengah */
 }
 
 /* Media query untuk versi mobile */
@@ -34,8 +43,10 @@
   }
 
   .about-container {
-    padding: 20px; /* Kurangi padding di dalam kontainer */
-    border-radius: 4px; /* Kurangi radius sudut */
+    padding: 15px; /* Padding yang sesuai untuk layar kecil */
+    border-radius: 6px; /* Radius sudut sedikit lebih besar untuk tampilan mobile */
+    width: 100%; /* Lebar penuh kontainer */
+    height: auto; /* Tinggi otomatis menyesuaikan konten */
   }
 
   .about-container h1 {
@@ -45,12 +56,16 @@
 
   .about-container p {
     font-size: 1rem; /* Sesuaikan ukuran font paragraf */
-    text-align: left; /* Ubah teks paragraf menjadi rata kiri untuk tampilan mobile */
+    text-align: center; /* Tetap ratakan teks di tengah */
   }
 }
 
 /* Media query untuk versi mobile lebih kecil (seperti ponsel) */
 @media (max-width: 480px) {
+  .about-container {
+    padding: 10px; /* Padding lebih kecil untuk layar ponsel */
+  }
+
   .about-container h1 {
     font-size: 1.75rem; /* Sesuaikan ukuran font judul lebih kecil untuk layar sangat kecil */
     margin-bottom: 10px; /* Kurangi margin bawah */

@@ -4,7 +4,13 @@ html {
 
 /* Gaya untuk header */
 .header {
-  background-color: #5f7e78; /* Warna latar belakang yang tenang */
+  background-color: rgba(
+    95,
+    126,
+    120,
+    0.8
+  ); /* Warna latar belakang dengan transparansi */
+  backdrop-filter: blur(10px); /* Efek buram latar belakang */
   padding: 15px 0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow lembut */
   position: fixed; /* Menjaga header tetap di atas */
@@ -12,6 +18,7 @@ html {
   left: 0;
   width: 100%; /* Lebar penuh */
   z-index: 1000; /* Pastikan header berada di atas elemen lainnya */
+  transition: background-color 0.3s, backdrop-filter 0.3s; /* Transisi halus */
 }
 
 /* Kontainer untuk elemen dalam header */
@@ -92,11 +99,18 @@ html {
     position: absolute;
     top: 60px; /* Jarak dari bagian atas */
     right: 0;
-    background-color: #5f7e78;
+    background-color: rgba(
+      95,
+      126,
+      120,
+      0.8
+    ); /* Warna latar belakang dengan transparansi */
+    backdrop-filter: blur(10px); /* Efek buram latar belakang */
     width: 200px; /* Lebar menu sedikit lebih kecil */
     padding: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1000; /* Menyimpan menu di atas elemen lain */
+    transition: background-color 0.3s, backdrop-filter 0.3s; /* Transisi halus */
   }
 
   .header-nav.show {
