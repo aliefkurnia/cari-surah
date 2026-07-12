@@ -1,0 +1,262 @@
+.doa-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px 20px 60px;
+}
+
+.doa-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  gap: 16px;
+}
+
+/* Header */
+.doa-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.doa-header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.doa-header p {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+.doa-search {
+  display: flex;
+  align-items: center;
+  max-width: 500px;
+  margin: 0 auto 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 4px;
+  box-shadow: var(--shadow);
+  transition: border-color var(--transition);
+}
+
+.doa-search:focus-within {
+  border-color: var(--green);
+}
+
+.doa-search-icon {
+  padding: 0 14px;
+  color: var(--text-muted);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.doa-search input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: 0.92rem;
+  padding: 10px 0;
+  outline: none;
+}
+
+.doa-search input::placeholder {
+  color: var(--text-muted);
+}
+
+.doa-grup-filter {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.doa-grup-filter select {
+  width: 100%;
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: 0.88rem;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237a9488' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+}
+
+.doa-grup-filter select:focus {
+  border-color: var(--green);
+}
+
+/* Doa List */
+.doa-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.doa-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: border-color var(--transition);
+}
+
+.doa-card:hover {
+  border-color: rgba(27, 107, 69, 0.25);
+}
+
+.doa-card-header {
+  padding: 16px 20px;
+  background: var(--green-light);
+  border-bottom: 1px solid var(--border);
+}
+
+.doa-card-grup {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--green);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.doa-card-nama {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 4px;
+}
+
+.doa-card-body {
+  padding: 20px;
+}
+
+.doa-arabic {
+  font-family: var(--font-arabic);
+  font-size: 1.6rem;
+  line-height: 2.2;
+  color: var(--text);
+  direction: rtl;
+  text-align: right;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.doa-latin {
+  font-size: 0.88rem;
+  font-style: italic;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+
+.doa-translation {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* Footer / Tentang */
+.doa-card-footer {
+  border-top: 1px solid var(--border);
+  padding: 0 20px;
+}
+
+.doa-tentang-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color var(--transition);
+}
+
+.doa-tentang-toggle:hover {
+  color: var(--green);
+}
+
+.doa-tentang-toggle .arrow {
+  transition: transform var(--transition);
+  font-size: 0.7rem;
+}
+
+.doa-tentang-toggle .arrow.open {
+  transform: rotate(180deg);
+}
+
+.doa-tentang-text {
+  padding: 0 0 16px;
+  font-size: 0.85rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  white-space: pre-wrap;
+}
+
+/* Tags */
+.doa-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  padding: 0 20px 16px;
+}
+
+.doa-tag {
+  padding: 3px 10px;
+  border-radius: 50px;
+  background: var(--green-light);
+  color: var(--green);
+  font-size: 0.72rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.doa-tag:hover {
+  background: var(--green);
+  color: #fff;
+}
+
+/* Empty */
+.doa-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .doa-page {
+    padding: 16px 12px 40px;
+  }
+
+  .doa-header h1 {
+    font-size: 1.4rem;
+  }
+
+  .doa-arabic {
+    font-size: 1.35rem;
+  }
+
+  .doa-card-body {
+    padding: 16px;
+  }
+}

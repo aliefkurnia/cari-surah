@@ -1,22 +1,40 @@
 import React from "react";
-import "../styles/About.css"; // Import CSS khusus untuk About
+import "../styles/About.css";
 
 const About = () => {
   return (
     <section className="about-section" id="about">
-      <div className="about-container">
-        <h1>Tentang Kami</h1>
-        <p>
-          Welcome to our application! This app provides a convenient way to
-          explore and learn about various Surahs from the Quran. Our mission is
-          to make accessing Islamic texts and information easier for everyone.
-          We strive to provide accurate and comprehensive information to help
-          users better understand and appreciate the Quranic teachings.
-        </p>
-        <p>
-          If you have any questions or feedback, feel free to contact us through
-          our Contact page.
-        </p>
+      <h2>
+        Tentang <span>CariSurah</span>
+      </h2>
+      <p>
+        CariSurah adalah aplikasi Al-Qur'an digital yang memudahkan Anda untuk
+        membaca, mendengarkan, dan memahami Al-Qur'an. Dilengkapi dengan
+        terjemahan bahasa Indonesia, transliterasi Latin, tafsir, dan audio
+        dari qari ternama.
+      </p>
+
+      <div className="about-features">
+        <div className="about-feature">
+          <div className="feature-icon">&#128214;</div>
+          <h3>114 Surah Lengkap</h3>
+          <p>Baca seluruh Al-Qur'an dengan teks Arab, transliterasi, dan terjemahan</p>
+        </div>
+        <div className="about-feature">
+          <div className="feature-icon">&#127911;</div>
+          <h3>Audio Per Ayat</h3>
+          <p>Dengarkan tilawah dari 6 qari ternama dunia untuk setiap ayat</p>
+        </div>
+        <div className="about-feature">
+          <div className="feature-icon">&#128218;</div>
+          <h3>Tafsir</h3>
+          <p>Pahami makna mendalam setiap ayat melalui tafsir lengkap</p>
+        </div>
+        <div className="about-feature">
+          <div className="feature-icon">&#9998;</div>
+          <h3>Kalkulator Zakat</h3>
+          <p>Hitung kewajiban zakat maal Anda dengan mudah dan akurat</p>
+        </div>
       </div>
     </section>
   );

@@ -1,68 +1,91 @@
 import axios from "axios";
 
-const baseUrl = process.env.REACT_APP_BASEURL;
+const BASE_URL = "https://equran.id/api/v2";
 
-// Mengambil daftar surah dari API
 export const getSurahList = async () => {
   try {
-    const response = await axios.get(baseUrl);
-    return response.data.data; // Sesuaikan dengan struktur data API
+    const response = await axios.get(`${BASE_URL}/surat`);
+    return response.data.data;
   } catch (error) {
-    console.error("Error fetching the surah list", error);
+    console.error("Error fetching surah list", error);
     return [];
   }
 };
 
-// Menghitung jarak Levenshtein antara dua string
+export const getSurahDetail = async (id) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/surat/${id}`);
+    return response.data.data;
+  } catch (error) {
+    console.error("Error fetching surah detail", error);
+    return null;
+  }
+};
+
+export const getTafsir = async (id) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/tafsir/${id}`);
+    return response.data.data;
+  } catch (error) {
+    console.error("Error fetching tafsir", error);
+    return null;
+  }
+};
+
+export const getDoaList = async () => {
+  try {
+    const response = await axios.get("https://equran.id/api/doa");
+    return response.data.data || [];
+  } catch (error) {
+    console.error("Error fetching doa list", error);
+    return [];
+  }
+};
+
+export const getQariList = () => [
+  { id: "01", name: "Abdullah Al-Juhany" },
+  { id: "02", name: "Abdul Muhsin Al-Qasim" },
+  { id: "03", name: "Abdurrahman as-Sudais" },
+  { id: "04", name: "Ibrahim Al-Dossari" },
+  { id: "05", name: "Misyari Rasyid Al-Afasi" },
+  { id: "06", name: "Yasser Al-Dosari" },
+];
+
 const levenshteinDistance = (a, b) => {
-  const distanceMatrix = Array(b.length + 1)
+  const matrix = Array(b.length + 1)
     .fill(null)
     .map(() => Array(a.length + 1).fill(null));
-
-  for (let i = 0; i <= a.length; i += 1) {
-    distanceMatrix[0][i] = i;
-  }
-
-  for (let j = 0; j <= b.length; j += 1) {
-    distanceMatrix[j][0] = j;
-  }
-
-  for (let j = 1; j <= b.length; j += 1) {
-    for (let i = 1; i <= a.length; i += 1) {
-      const indicator = a[i - 1] === b[j - 1] ? 0 : 1;
-      distanceMatrix[j][i] = Math.min(
-        distanceMatrix[j][i - 1] + 1, // Penghapusan
-        distanceMatrix[j - 1][i] + 1, // Penyisipan
-        distanceMatrix[j - 1][i - 1] + indicator // Substitusi
+  for (let i = 0; i <= a.length; i++) matrix[0][i] = i;
+  for (let j = 0; j <= b.length; j++) matrix[j][0] = j;
+  for (let j = 1; j <= b.length; j++) {
+    for (let i = 1; i <= a.length; i++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      matrix[j][i] = Math.min(
+        matrix[j][i - 1] + 1,
+        matrix[j - 1][i] + 1,
+        matrix[j - 1][i - 1] + cost
       );
     }
   }
-
-  return distanceMatrix[b.length][a.length];
+  return matrix[b.length][a.length];
 };
 
-// Mencari surah yang mirip dengan nama yang diberikan
 export const findSimilarSurahByName = (surahList, name) => {
-  if (!surahList || surahList.length === 0) {
-    return [];
-  }
+  if (!surahList || surahList.length === 0) return [];
+  const query = name.toLowerCase().replace(/[-\s]/g, "");
+  if (!query) return surahList;
 
-  const similarSurah = surahList.reduce((acc, surahItem) => {
-    const surahNameWithoutSpace = surahItem.namaLatin
-      .toLowerCase()
-      .replace(/\s/g, "");
-    const searchNameWithoutSpace = name.toLowerCase().replace(/\s/g, "");
+  const withScores = surahList
+    .map((s) => {
+      const latin = s.namaLatin.toLowerCase().replace(/[-\s]/g, "");
+      const arti = (s.arti || "").toLowerCase();
+      if (latin.includes(query) || query.includes(latin)) return { s, score: 0 };
+      if (arti.includes(query)) return { s, score: 1 };
+      const dist = levenshteinDistance(latin, query);
+      return { s, score: dist };
+    })
+    .filter((item) => item.score <= 4)
+    .sort((a, b) => a.score - b.score);
 
-    const distance = levenshteinDistance(
-      surahNameWithoutSpace,
-      searchNameWithoutSpace
-    );
-    if (distance <= 3) {
-      // Toleransi jarak 3 karakter
-      acc.push(surahItem);
-    }
-    return acc;
-  }, []);
-
-  return similarSurah.length > 0 ? similarSurah : surahList;
+  return withScores.map((item) => item.s);
 };

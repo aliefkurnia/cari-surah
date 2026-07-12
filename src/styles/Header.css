@@ -1,87 +1,103 @@
-html {
-  scroll-behavior: smooth; /* Mengaktifkan scroll halus di seluruh halaman */
-}
-
-/* Gaya untuk header */
 .header {
-  background-color: rgba(
-    95,
-    126,
-    120,
-    0.8
-  ); /* Warna latar belakang dengan transparansi */
-  backdrop-filter: blur(10px); /* Efek buram latar belakang */
-  padding: 15px 0;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow lembut */
-  position: fixed; /* Menjaga header tetap di atas */
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%; /* Lebar penuh */
-  z-index: 1000; /* Pastikan header berada di atas elemen lainnya */
-  transition: background-color 0.3s, backdrop-filter 0.3s; /* Transisi halus */
+  width: 100%;
+  z-index: 1000;
+  background: var(--green-dark);
+  height: var(--header-height);
 }
 
-/* Kontainer untuk elemen dalam header */
 .header-container {
-  max-width: 1200px;
+  max-width: var(--max-width);
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 24px;
+  height: 100%;
 }
 
-/* Logo di header */
-.header-logo {
-  width: 120px; /* Ukuran logo lebih kecil */
-  height: auto;
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #fff;
 }
 
-/* Menu navigasi di header */
+.header-brand .brand-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-arabic);
+  font-size: 1.2rem;
+  color: var(--gold-light);
+}
+
+.header-brand .brand-text {
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: -0.01em;
+}
+
+.header-brand .brand-text span {
+  color: var(--gold-light);
+}
+
 .header-nav {
   display: flex;
+  align-items: center;
 }
 
-/* Gaya untuk menu navigasi */
 .header-nav ul {
   list-style: none;
   display: flex;
-  gap: 15px; /* Spasi antar menu yang lebih kecil */
+  gap: 4px;
   margin: 0;
   padding: 0;
 }
 
 .header-nav ul li a {
   text-decoration: none;
-  color: #f1ead7; /* Warna teks */
-  font-size: 1rem; /* Ukuran font lebih kecil */
-  transition: color 0.3s; /* Animasi pada hover */
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.88rem;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all var(--transition);
 }
 
 .header-nav ul li a:hover {
-  color: #333; /* Warna teks saat di hover */
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
 }
 
-/* Menu Hamburger */
 .hamburger {
   display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  gap: 5px; /* Spasi antar garis */
+  gap: 5px;
+  padding: 8px;
+  border-radius: 8px;
 }
 
 .hamburger div {
-  width: 30px;
-  height: 3px;
-  background-color: #f1ead7;
+  width: 22px;
+  height: 2px;
+  background-color: #fff;
   transition: all 0.3s;
   transform-origin: center;
 }
 
 .hamburger.active div:nth-child(1) {
-  transform: rotate(45deg) translateY(11px);
+  transform: rotate(45deg) translateY(10px);
 }
 
 .hamburger.active div:nth-child(2) {
@@ -89,28 +105,19 @@ html {
 }
 
 .hamburger.active div:nth-child(3) {
-  transform: rotate(-45deg) translateY(-11px);
+  transform: rotate(-45deg) translateY(-10px);
 }
 
 @media (max-width: 768px) {
   .header-nav {
     display: none;
-    flex-direction: column;
     position: absolute;
-    top: 60px; /* Jarak dari bagian atas */
+    top: var(--header-height);
     right: 0;
-    background-color: rgba(
-      95,
-      126,
-      120,
-      0.8
-    ); /* Warna latar belakang dengan transparansi */
-    backdrop-filter: blur(10px); /* Efek buram latar belakang */
-    width: 200px; /* Lebar menu sedikit lebih kecil */
-    padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* Menyimpan menu di atas elemen lain */
-    transition: background-color 0.3s, backdrop-filter 0.3s; /* Transisi halus */
+    left: 0;
+    background: var(--green-dark);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 12px;
   }
 
   .header-nav.show {
@@ -118,25 +125,13 @@ html {
   }
 
   .header-nav ul {
-    display: flex;
     flex-direction: column;
-    margin: 0;
-    padding: 0;
-  }
-
-  .header-nav ul li {
-    margin: 5px 0; /* Margin antar item lebih kecil */
+    width: 100%;
   }
 
   .header-nav ul li a {
-    font-size: 0.9rem; /* Kecilkan font pada perangkat mobile */
-    color: #f1ead7;
-    padding: 10px;
-    display: block; /* Membuat tautan memanjang ke seluruh lebar menu */
-  }
-
-  .header-nav ul li a:hover {
-    color: #333; /* Warna teks saat di hover */
+    display: block;
+    padding: 12px 16px;
   }
 
   .hamburger {

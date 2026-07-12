@@ -1,121 +1,88 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 import "./App.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import { getSurahList } from "./api";
 import SurahCard from "./components/SurahCard";
 import SurahDetail from "./components/SurahDetail";
 import ZakatCalculator from "./components/ZakatCalculator";
 import About from "./components/About";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
-import SearchIcon from "@mui/icons-material/Search";
-import TextField from "@mui/material/TextField";
-import { findSimilarSurahByName } from "./api";
+import Doa from "./components/Doa";
+import { getSurahList, findSimilarSurahByName } from "./api";
+
+const ITEMS_PER_PAGE = 12;
 
 const App = () => {
   const [surahList, setSurahList] = useState([]);
   const [searchInput, setSearchInput] = useState("");
-  const [foundSurah, setFoundSurah] = useState([]);
-  const [surahNotFound, setSurahNotFound] = useState(false);
-  const [emptyInputError, setEmptyInputError] = useState(false);
+  const [filter, setFilter] = useState("semua");
+  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
 
   useEffect(() => {
     getSurahList()
       .then((result) => {
-        setSurahList(result);
-        setFoundSurah(result);
+        setSurahList(result || []);
+        setLoading(false);
       })
-      .catch((error) => {
-        console.error("Error fetching surah list:", error);
+      .catch(() => {
         setSurahList([]);
+        setLoading(false);
       });
   }, []);
+
+  const filteredSurahs = useMemo(() => {
+    let list = surahList;
+
+    if (filter === "makkiyah") {
+      list = list.filter((s) => s.tempatTurun === "Mekah");
+    } else if (filter === "madaniyah") {
+      list = list.filter((s) => s.tempatTurun === "Madinah");
+    }
+
+    if (searchInput.trim()) {
+      return findSimilarSurahByName(list, searchInput.trim());
+    }
+
+    return list;
+  }, [surahList, searchInput, filter]);
 
   useEffect(() => {
-    const handleScroll = (event) => {
-      event.preventDefault();
-      const targetId = event.currentTarget.getAttribute("href").slice(1);
-      const targetElement = document.getElementById(targetId);
-      if (targetElement) {
-        targetElement.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }
-    };
+    setCurrentPage(1);
+  }, [searchInput, filter]);
 
-    const scrollLinks = document.querySelectorAll('a[href^="#"]');
-    scrollLinks.forEach((link) => {
-      link.addEventListener("click", handleScroll);
-    });
+  const totalPages = Math.ceil(filteredSurahs.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const currentSurahs = filteredSurahs.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
-    return () => {
-      scrollLinks.forEach((link) => {
-        link.removeEventListener("click", handleScroll);
-      });
-    };
-  }, []);
-
-  const handleInputChange = (e) => {
-    setSearchInput(e.target.value);
-  };
-
-  const handleSearch = () => {
-    const trimmedInput = searchInput.trim();
-    if (trimmedInput === "") {
-      setSurahNotFound(false);
-      setEmptyInputError(true);
-      setFoundSurah(surahList);
-    } else {
-      const surah = findSimilarSurahByName(surahList, trimmedInput);
-      if (surah.length === 0) {
-        setSurahNotFound(true);
-        setFoundSurah([]);
-      } else {
-        setSurahNotFound(false);
-        setFoundSurah(surah);
-      }
-      setEmptyInputError(false);
-      setCurrentPage(1);
-    }
-  };
-
-  const handlePageChange = (event, value) => {
-    setCurrentPage(value);
-  };
-
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentSurahs = foundSurah.slice(indexOfFirstItem, indexOfLastItem);
-
-  const totalPages = Math.ceil(foundSurah.length / itemsPerPage);
-
-  // Function to handle Enter key press
-  const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
-      handleSearch();
-    }
-  };
-
-  // Intersection Observer hooks
-  const { ref: headerRef, inView: headerInView } = useInView({
-    triggerOnce: false,
+  const { ref: heroRef, inView: heroInView } = useInView({
+    triggerOnce: true,
     threshold: 0.1,
   });
-  const { ref: calculatorRef, inView: calculatorInView } = useInView({
-    triggerOnce: false,
+  const { ref: zakatRef, inView: zakatInView } = useInView({
+    triggerOnce: true,
     threshold: 0.1,
   });
   const { ref: aboutRef, inView: aboutInView } = useInView({
-    triggerOnce: false,
+    triggerOnce: true,
     threshold: 0.1,
   });
+
+  const makkiyahCount = surahList.filter((s) => s.tempatTurun === "Mekah").length;
+  const madaniyahCount = surahList.length - makkiyahCount;
+
+  const getPageNumbers = () => {
+    const pages = [];
+    const maxVisible = 5;
+    let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+    let end = Math.min(totalPages, start + maxVisible - 1);
+    if (end - start + 1 < maxVisible) {
+      start = Math.max(1, end - maxVisible + 1);
+    }
+    for (let i = start; i <= end; i++) pages.push(i);
+    return pages;
+  };
 
   return (
     <Router>
@@ -127,106 +94,145 @@ const App = () => {
               path="/"
               element={
                 <>
-                  <header
-                    className={`App-header ${headerInView ? "appear" : ""}`}
-                    id="home"
-                    ref={headerRef}
-                  >
-                    <h1>Selamat Datang di Aplikasi Cari Surah</h1>
-                    <p>
-                      Temukan informasi lengkap tentang surah-surah dalam
-                      Al-Qur'an, hitung zakat Anda, dan pelajari lebih lanjut
-                      tentang topik-topik terkait. Gunakan kotak pencarian di
-                      bawah untuk mencari surah berdasarkan nama. Aplikasi ini
-                      dirancang untuk membantu Anda dalam memahami dan mengakses
-                      Al-Qur'an dengan mudah.
-                    </p>
-                    <Stack
-                      direction={{ xs: "column", sm: "row" }}
-                      spacing={2}
-                      alignItems="center"
-                    >
-                      <TextField
-                        className="text-input"
-                        variant="filled"
-                        label="Masukkan nama surah"
-                        onChange={handleInputChange}
-                        onKeyPress={handleKeyPress} // Add this line
-                        InputLabelProps={{
-                          style: {
-                            color: "#5f7e78",
-                            marginTop: "-5px",
-                          },
-                        }}
-                        sx={{
-                          "& .MuiFilledInput-root": {
-                            fontSize: "2rem",
-                            height: "3rem",
-                          },
-                          width: { xs: "100%", sm: "80%" },
-                        }}
-                      />
-
-                      <Button
-                        className="search-button"
-                        variant="contained"
-                        endIcon={<SearchIcon />}
-                        onClick={handleSearch}
-                        sx={{
-                          width: { xs: "100%", sm: "auto" },
-                          marginTop: { xs: "10px", sm: "0" },
-                          backgroundColor: "#5f7e78",
-                          "&:hover": {
-                            backgroundColor: "#4a6c65", // Background color on hover
-                          },
-                          "&:active": {
-                            backgroundColor: "#4a6c65", // Background color when button is pressed
-                          },
-                        }}
-                      >
-                        Cari
-                      </Button>
-                    </Stack>
-
-                    {surahNotFound && <h3>Surah tidak ditemukan.</h3>}
-                    {emptyInputError && (
-                      <p>Masukkan nama surah untuk mencari.</p>
-                    )}
-                    <div className="surah-list">
-                      {currentSurahs.map((surah) => (
-                        <SurahCard key={surah.nomor} surah={surah} />
-                      ))}
-                    </div>
-                    <Pagination
-                      className="pagination"
-                      count={totalPages}
-                      page={currentPage}
-                      onChange={handlePageChange}
-                    />
-                  </header>
                   <section
-                    className={`calculator-section ${
-                      calculatorInView ? "appear" : ""
-                    }`}
-                    id="zakat-calculator"
-                    ref={calculatorRef}
+                    className={`hero ${heroInView ? "appear" : ""}`}
+                    id="home"
+                    ref={heroRef}
+                  >
+                    <div className="hero-bismillah">&#65010;</div>
+                    <h1>
+                      Al-Qur'an <span>Digital</span>
+                    </h1>
+                    <p>
+                      Baca, dengarkan, dan pahami Al-Qur'an dengan terjemahan
+                      Indonesia, transliterasi Latin, tafsir, serta audio dari
+                      qari ternama dunia.
+                    </p>
+
+                    <div className="search-container">
+                      <span className="search-icon">&#128269;</span>
+                      <input
+                        className="search-input"
+                        type="text"
+                        placeholder="Cari surah... (contoh: Al-Fatihah, Yasin)"
+                        value={searchInput}
+                        onChange={(e) => setSearchInput(e.target.value)}
+                      />
+                    </div>
+
+                    <div className="filter-tabs">
+                      <button
+                        className={`filter-tab ${filter === "semua" ? "active" : ""}`}
+                        onClick={() => setFilter("semua")}
+                      >
+                        Semua ({surahList.length})
+                      </button>
+                      <button
+                        className={`filter-tab ${filter === "makkiyah" ? "active" : ""}`}
+                        onClick={() => setFilter("makkiyah")}
+                      >
+                        Makkiyah ({makkiyahCount})
+                      </button>
+                      <button
+                        className={`filter-tab ${filter === "madaniyah" ? "active" : ""}`}
+                        onClick={() => setFilter("madaniyah")}
+                      >
+                        Madaniyah ({madaniyahCount})
+                      </button>
+                    </div>
+
+                    <div className="stats-bar">
+                      <div className="stat-item">
+                        <div className="stat-value">114</div>
+                        <div className="stat-label">Surah</div>
+                      </div>
+                      <div className="stat-item">
+                        <div className="stat-value">6.236</div>
+                        <div className="stat-label">Ayat</div>
+                      </div>
+                      <div className="stat-item">
+                        <div className="stat-value">30</div>
+                        <div className="stat-label">Juz</div>
+                      </div>
+                    </div>
+                  </section>
+
+                  <section className="surah-section">
+                    {loading ? (
+                      <div className="no-results">Memuat daftar surah...</div>
+                    ) : currentSurahs.length > 0 ? (
+                      <>
+                        <div className="surah-grid">
+                          {currentSurahs.map((surah) => (
+                            <SurahCard key={surah.nomor} surah={surah} />
+                          ))}
+                        </div>
+                        {totalPages > 1 && (
+                          <div className="pagination">
+                            <button
+                              className="page-btn"
+                              disabled={currentPage === 1}
+                              onClick={() => setCurrentPage((p) => p - 1)}
+                            >
+                              &#8249;
+                            </button>
+                            {getPageNumbers().map((num) => (
+                              <button
+                                key={num}
+                                className={`page-btn ${currentPage === num ? "active" : ""}`}
+                                onClick={() => setCurrentPage(num)}
+                              >
+                                {num}
+                              </button>
+                            ))}
+                            <span className="page-info">
+                              {startIndex + 1}-{Math.min(startIndex + ITEMS_PER_PAGE, filteredSurahs.length)} dari {filteredSurahs.length}
+                            </span>
+                            <button
+                              className="page-btn"
+                              disabled={currentPage === totalPages}
+                              onClick={() => setCurrentPage((p) => p + 1)}
+                            >
+                              &#8250;
+                            </button>
+                          </div>
+                        )}
+                      </>
+                    ) : (
+                      <div className="no-results">
+                        Surah tidak ditemukan untuk "{searchInput}"
+                      </div>
+                    )}
+                  </section>
+
+                  <div className="section-divider">
+                    <hr />
+                  </div>
+
+                  <div
+                    className={zakatInView ? "appear" : ""}
+                    ref={zakatRef}
+                    style={{ opacity: zakatInView ? 1 : 0 }}
                   >
                     <ZakatCalculator />
-                  </section>
-                  <section
-                    className={`about-section ${aboutInView ? "appear" : ""}`}
-                    id="about"
+                  </div>
+
+                  <div className="section-divider">
+                    <hr />
+                  </div>
+
+                  <div
+                    className={aboutInView ? "appear" : ""}
                     ref={aboutRef}
+                    style={{ opacity: aboutInView ? 1 : 0 }}
                   >
                     <About />
-                  </section>
+                  </div>
                 </>
               }
             />
-            <Route
-              path="/surah/:surahId"
-              element={<SurahDetail surahList={surahList} />}
-            />
+            <Route path="/surah/:surahId" element={<SurahDetail />} />
+            <Route path="/doa" element={<Doa />} />
           </Routes>
         </div>
         <Footer />

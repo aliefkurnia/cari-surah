@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/Header.css";
-import icon from "../images/icon.png";
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -9,11 +8,12 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header-container">
-        <div className="logo-container">
-          <Link to="/">
-            <img src={icon} alt="Quran App" className="header-logo" />
-          </Link>
-        </div>
+        <Link to="/" className="header-brand" onClick={() => setShowMenu(false)}>
+          <div className="brand-icon">&#1602;</div>
+          <div className="brand-text">
+            Cari<span>Surah</span>
+          </div>
+        </Link>
         <div
           className={`hamburger ${showMenu ? "active" : ""}`}
           onClick={() => setShowMenu(!showMenu)}
@@ -25,13 +25,24 @@ const Header = () => {
         <nav className={`header-nav ${showMenu ? "show" : ""}`}>
           <ul>
             <li>
-              <a href="#home">Home</a>
+              <a href="/#home" onClick={() => setShowMenu(false)}>
+                Beranda
+              </a>
             </li>
             <li>
-              <a href="#zakat-calculator">Kalkulator Zakat</a>
+              <Link to="/doa" onClick={() => setShowMenu(false)}>
+                Doa
+              </Link>
             </li>
             <li>
-              <a href="#about">Tentang Kami</a>
+              <a href="/#zakat-calculator" onClick={() => setShowMenu(false)}>
+                Kalkulator Zakat
+              </a>
+            </li>
+            <li>
+              <a href="/#about" onClick={() => setShowMenu(false)}>
+                Tentang
+              </a>
             </li>
           </ul>
         </nav>

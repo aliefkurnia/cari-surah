@@ -1,100 +1,138 @@
-/* Styling untuk .zakat-calculator */
-.zakat-calculator {
-  width: 100%; /* Lebar penuh kontainer */
-  max-width: 800px; /* Lebar maksimum elemen */
-  padding: 20px; /* Padding di dalam kalkulator */
-  margin: 20px auto; /* Margin atas dan bawah */
-  border-radius: 8px; /* Radius sudut */
-  text-align: center; /* Pusatkan teks di dalam kalkulator */
-  overflow-x: hidden; /* Menyembunyikan scroll horizontal */
+.zakat-section {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 60px 20px;
 }
 
-/* Styling untuk judul dalam kalkulator */
-.zakat-calculator h1 {
-  font-size: 2.5rem; /* Ukuran font judul */
-  color: #333; /* Warna teks */
-  margin-bottom: 20px; /* Margin bawah judul */
+.zakat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
 }
 
-/* Styling untuk input dan tombol dalam kalkulator */
-.calculator-inputs {
+.zakat-card h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.zakat-subtitle {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.zakat-form {
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Jarak antara input dan tombol */
-  margin-bottom: 20px; /* Margin bawah input dan tombol */
+  gap: 16px;
 }
 
-.calculator-inputs input {
-  padding: 10px; /* Padding di dalam input */
-  font-size: 1.1rem; /* Ukuran font input */
-  border: 1px solid #ccc; /* Garis border input */
-  border-radius: 5px; /* Radius sudut input */
+.zakat-field label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
 }
 
-.calculator-inputs button {
-  padding: 10px; /* Padding di dalam tombol */
-  background-color: #5f7e78; /* Warna latar belakang tombol */
-  color: white; /* Warna teks tombol */
-  border: none; /* Hilangkan border tombol */
-  font-size: 1.2rem; /* Ukuran font tombol */
-  cursor: pointer; /* Kursor pointer saat hover */
-  border-radius: 5px; /* Radius sudut tombol */
+.zakat-field input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color var(--transition);
 }
 
-.calculator-inputs button:hover {
-  background-color: #4a6c65; /* Warna latar belakang tombol saat hover */
+.zakat-field input:focus {
+  border-color: var(--green);
 }
 
-/* Styling untuk hasil kalkulasi */
+.zakat-field input::placeholder {
+  color: var(--text-muted);
+}
+
+.zakat-nisab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: var(--green-light);
+  border: 1px solid rgba(27, 107, 69, 0.15);
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  color: var(--green);
+}
+
+.zakat-nisab span {
+  font-size: 1rem;
+}
+
+.zakat-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--green);
+  color: #fff;
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.zakat-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
 .zakat-result {
-  margin-top: 20px; /* Margin atas hasil kalkulasi */
-  font-size: 1.2rem; /* Ukuran font hasil */
-  color: #333; /* Warna teks hasil */
+  margin-top: 20px;
+  padding: 20px;
+  background: var(--green-light);
+  border-radius: var(--radius-sm);
+  text-align: center;
 }
 
-/* Media query untuk versi mobile */
+.zakat-result-label {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.zakat-result-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--green);
+}
+
+.zakat-result-note {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+
+.zakat-result-note.below-nisab {
+  color: var(--text-secondary);
+}
+
 @media (max-width: 768px) {
-  .zakat-calculator {
-    padding: 15px; /* Kurangi padding di dalam kalkulator */
-    max-width: 100%; /* Pastikan kalkulator tidak melewati lebar layar */
+  .zakat-section {
+    padding: 40px 16px;
   }
 
-  .zakat-calculator h1 {
-    font-size: 2rem; /* Sesuaikan ukuran font judul untuk layar kecil */
-    margin-bottom: 15px; /* Kurangi margin bawah judul */
-  }
-
-  .calculator-inputs input {
-    font-size: 1rem; /* Sesuaikan ukuran font input untuk layar kecil */
-  }
-
-  .calculator-inputs button {
-    font-size: 1rem; /* Sesuaikan ukuran font tombol */
-    padding: 8px; /* Kurangi padding tombol untuk layar kecil */
-  }
-
-  .zakat-result {
-    font-size: 1rem; /* Sesuaikan ukuran font hasil */
-  }
-}
-
-/* Media query untuk versi mobile lebih kecil (seperti ponsel) */
-@media (max-width: 480px) {
-  .zakat-calculator h1 {
-    font-size: 1.75rem; /* Sesuaikan ukuran font judul lebih kecil untuk layar sangat kecil */
-    margin-bottom: 10px; /* Kurangi margin bawah judul */
-  }
-
-  .calculator-inputs input {
-    font-size: 0.9rem; /* Sesuaikan ukuran font input untuk layar sangat kecil */
-  }
-
-  .calculator-inputs button {
-    font-size: 0.9rem; /* Sesuaikan ukuran font tombol untuk layar sangat kecil */
-    padding: 6px; /* Kurangi padding tombol */
-  }
-
-  .zakat-result {
-    font-size: 0.9rem; /* Sesuaikan ukuran font hasil */
+  .zakat-card {
+    padding: 24px 16px;
   }
 }
